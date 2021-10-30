@@ -1,0 +1,173 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Show{% endblock %}
+{% block body %}
+ <section>
+<div class="card">
+  <div class="poster"><img src="{{ film.image }}" alt="" ></div>
+	<div class="details">
+			<h2 >{{ film.nom }}(2022)<br><span>Réalisateur:{{ film.realisateur }}</span></h2>
+        
+		
+      <div class="tags">
+       
+      
+				<span>
+					
+					<h4>Durée:{{ film.duree | date('H:i') }}</h4>
+				</span>
+				
+				<span>
+				
+					<h4>Date: Le {{ film.time | date('d/m/y') }} à {{ film.time | date('H:i') }} </h4>
+				</span>
+			</div>
+
+			<div class="info">
+        <p>{{ film.description  }}
+				</p>
+        
+     
+			</div>
+
+ </div>
+</div>
+ </section>
+ <section id="commentaires">
+    <h1>{{ film.comments | length }} commentaires : </h1>
+   {% for comment in film.comments %}
+   <div class="comment">
+       <div class="row">
+           <div class="col-3">
+              {{comment.nomutilisateur}} (<small>{{comment.date | date('d/m/y à H:i' )}}</small>)
+           </div>   
+           <div class="col-9">
+              {{comment.content | raw}}
+           </div>
+       </div>
+
+   </div>
+   {% endfor %}
+
+   
+
+   {{ form_start(commentForm) }}
+   {{ form_row(commentForm.nomutilisateur, {'attr': {'placeholder': "Votre nom"}}) }}
+   {{ form_row(commentForm.content, {'attr': {'placeholder': "Votre commentaire"}}) }}
+
+   <button type="submit" class="btn btn-success">Commenter !</button>
+   {{ form_end(commentForm) }}
+
+   
+  
+ </section>
+
+ <style>
+ @import url('https://fonts.googleapis.com/css?family=PT+Sans');
+ body{
+   margin: 0;
+   padding:0;
+   font-family:'PT Sans', sans-serif;
+ }
+  .card
+{
+  
+  position:relative;
+  top:50%;
+  width: 100%;
+  height:1000px;
+  background:#000;
+  overflow: hidden;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.5) ;
+  border-radius: 20px;
+}
+.card .poster{
+    position: relative;
+    overflow: hidden;
+}
+.card .poster:before{
+  content: '';
+  position: absolute;
+  bottom: -182px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(0deg, #000, transparent);
+  transition: 0.5s;
+  z-index: 1;
+}
+.card:hover .poster:before{
+  bottom:0;
+}
+.card .poster img{
+     width: 100%;
+     height:1000px;
+     transition: 0.5s;
+}
+.card:hover .poster img{
+  
+  transform: translateY(-100px);
+}
+.details{
+  position: absolute;
+  padding: 20px;
+  width: 100%;
+  height: 74%;
+  bottom: -182px;
+  left: 0;
+  box-sizing: border-box;
+  transition: 0.5s;
+  z-index:2;
+}
+.card:hover .details{
+    bottom:0;
+}
+.details h2{
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  font-size: 40px;
+}
+.details h2 span{
+  font-size: 25px;
+  color: #ff9800;
+
+}
+.rating{
+    position: relative;
+    padding: 5px 0;
+}
+.rating .fa{
+  color:#f7f406;
+  margin-right: 2px;
+  font-size: 16px;
+}
+.rating span{
+  color: rgb(245, 240, 240);
+  padding: 0 5px;
+}
+.tags{
+  position: relative;
+  margin-top: 5px;
+}
+.info{
+  color: #fff;
+  bottom: -182px;
+  transition: 0.5s;
+  z-index: 1;
+}
+.info:hover{
+  bottom: 0;
+}
+.info p{
+  margin: 15px 0 10px;
+  font-size: 20px;
+}
+h4{
+  color:#fff;
+}
+
+ </style>
+  
+ {% endblock %}
+

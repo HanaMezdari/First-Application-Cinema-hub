@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact{% endblock %}
+
+{% block body %}
+   {% for message in app.flashes('message') %}
+       <div class="alert alert-success" role="alert">
+           {{ message }}
+       </div>
+   {% endfor %}
+   
+   <center><h1>Nous contacter</h1></center>
+   <div class="container">
+<section class="form">
+
+     <div class="row">
+
+
+
+        <div class="col"> </div>
+          <div class="col-6" >
+
+          {{form_start(contactForm)}}
+        
+
+
+
+        <div class="mb-3">
+            
+            {{form_row(contactForm.nom,{'attr':{'class':'form-control'}})}}
+        </div>
+
+
+
+         <div class="mb-3">
+           
+            {{form_row(contactForm.email,{'attr':{'class':'form-control'}})}}
+        </div>
+
+
+
+         <div class="mb-3">
+            
+            {{form_row(contactForm.message,{'attr':{'class':'form-control'}})}}
+        </div>
+        {{form_end(contactForm)}}
+
+          </div>
+          <div class="col"></div>
+        </div>
+
+    </div>
+    <style>
+        container{
+             background-color: aqua;
+        }
+    </style>
+
+{% endblock %}
